@@ -1,0 +1,12 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "./db/postgres/queries.sql"
+    schema: "./db/postgres/schema.sql"
+    gen:
+      go:
+        package: "repository"
+        emit_result_struct_pointers: true
+        emit_params_struct_pointers: true
+        emit_interface: true
+        out: "db/postgres/repository"

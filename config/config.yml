@@ -1,0 +1,14 @@
+# Postgres
+postgres:
+  driver: "pgx"
+  url: "postgres://postgres:postgres@127.0.0.1/service_db?sslmode=disable"
+
+server:
+  network: "tcp"
+  address: "0.0.0.0:8088"
+  restServer: "0.0.0.0:8089"
+
+logger:
+  serviceName: "CSVDataService"
+
+system:

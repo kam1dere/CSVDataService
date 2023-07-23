@@ -1,0 +1,98 @@
+version: "3"
+
+# to complete the task use | task your_task
+
+# to create migrations of your tables
+#  dbmate -s "./db/schema.db" new create_{table_name}_table
+
+tasks:
+  # from the config we get the url to connect to the database by yq for using in db commands
+  dburl:
+    cmds:
+      - echo "${SERVICE_POSTGRES_URL:-$(yq '.postgres.url' $(task configpath))}"
+  # to make up, down, drop and migrate database
+  dbmate:
+    cmds:
+      - dbmate -u $(task dburl) -d "./migrations/postgres" -s "./db/postgres/schema.sql" {{.CLI_ARGS}}
+  dbdown:
+    cmds:
+      - task: dbmate
+        vars:
+          CLI_ARGS: down
+    silent: true
+  dbup:
+    cmds:
+      - task: dbmate
+        vars:
+          CLI_ARGS: up
+    silent: true
+  dbmigrate:
+    cmds:
+      - task: dbmate
+        vars:
+          CLI_ARGS: migrate
+    silent: true
+  dbdump:
+    cmds:
+      - task: dbmate
+        vars:
+          CLI_ARGS: dump
+  dbdrop:
+    cmds:
+      - task: dbmate
+        vars:
+          CLI_ARGS: drop
+    silent: true
+
+  # to generate queries in the database
+  sqlc:
+    cmds:
+      - sqlc -f sqlc.yml generate
+    silent: true
+
+  # from the go mod we get module name by jq for use in proto generation commands
+  gomod:
+    cmds:
+      - go mod edit -json | jq -r '.Module.Path'
+
+  grpcui:
+    cmds:
+      - grpcui -port 7000 --plaintext $(yq '.server.address' $(task configpath))
+
+  # to generate proto files
+  genproto: >
+    protoc\
+        --go_out=.\
+        --go_opt=module=$(task gomod)\
+        --go-grpc_out=.\
+        --go-grpc_opt=module=$(task gomod)\
+        --grpc-gateway_out=.\
+        --grpc-gateway_opt=module=$(task gomod)\
+        grpc/proto/*.proto
+
+  configpath: echo "config/config.yml"
+  test:
+    env:
+      SERVICE_POSTGRES_URL: postgres://postgres:postgres@postgres:5432/testing?sslmode=disable
+      ALLURE_OUTPUT_PATH: ../
+    cmds:
+      - task: dbdrop
+      - task: dbup
+      - go test {{.CLI_ARGS}} ./pkg/...
+      - go test {{.CLI_ARGS}} ./tests/... -args "-config=$(pwd)/config/config.yml"
+      - task: allure-gen
+  gogen: go generate && goimports -w .
+
+  allure-gen: allure generate -c
+  allure:
+    cmds:
+      - task: allure-gen
+      - allure open -h 0.0.0.0 -p 4000
+  tidy: go mod tidy
+
+  # updating imported evo-wallet packages
+  evoupdate:
+    cmds:
+      - go get -u github.com/enigmadevteam/evo-wallet-auth
+    silent: true
+
