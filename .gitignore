@@ -7,3 +7,4 @@ main
 *.dll
 *.so
 *.dylib
+.idea

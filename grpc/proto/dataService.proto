@@ -5,4 +5,70 @@ package CSV.Data.Service;
 option go_package = "github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService";
 import "grpc/proto/api/annotations.proto";
 
-service Service {}
+service Service {
+  rpc GetItems(GetItemsRequest) returns (GetItemsResponse){
+    option (google.api.http) = {
+      get: "/get-items/{ids}"
+    };
+  };
+}
+
+message GetItemsRequest {
+  repeated int64 ids = 1;
+}
+
+message Item {
+  int32 id = 1;
+  string uid = 2;
+  string domain = 3;
+  string cn = 4;
+  string department = 5;
+  string title = 6;
+  string who = 7;
+  int32 logon_count = 8;
+  int32 num_logons7 = 9;
+  int32 num_share7 = 10;
+  int32 num_file7 = 11;
+  int32 num_ad7 = 12;
+  int32 num_n7 = 13;
+  int32 num_logons14 = 14;
+  int32 num_share14 = 15;
+  int32 num_file14 = 16;
+  int32 num_ad14 = 17;
+  int32 num_n14 = 18;
+  int32 num_logons30 = 19;
+  int32 num_share30 = 20;
+  int32 num_file30 = 21;
+  int32 num_ad30 = 22;
+  int32 num_n30 = 23;
+  int32 num_logons150 = 24;
+  int32 num_share150 = 25;
+  int32 num_file150 = 26;
+  int32 num_ad150 = 27;
+  int32 num_n150 = 28;
+  int32 num_logons365 = 29;
+  int32 num_share365 = 30;
+  int32 num_file365 = 31;
+  int32 num_ad365 = 32;
+  int32 num_n365 = 33;
+  bool has_user_principal_name = 34;
+  bool has_mail = 35;
+  bool has_phone = 36;
+  bool flag_disabled = 37;
+  bool flag_lockout = 38;
+  bool flag_password_not_required = 39;
+  bool flag_password_cant_change = 40;
+  bool flag_dont_expire_password = 41;
+  int32 owned_files = 42;
+  int32 num_mailboxes = 43;
+  int32 num_member_of_groups = 44;
+  int32 num_member_of_indirect_groups = 45;
+  string member_of_indirect_groups_ids = 46;
+  string member_of_groups_ids = 47;
+  bool is_admin = 48;
+  bool is_service = 49;
+}
+
+message GetItemsResponse {
+  repeated Item items = 1;
+}

@@ -89,10 +89,3 @@ tasks:
       - task: allure-gen
       - allure open -h 0.0.0.0 -p 4000
   tidy: go mod tidy
-
-  # updating imported evo-wallet packages
-  evoupdate:
-    cmds:
-      - go get -u github.com/enigmadevteam/evo-wallet-auth
-    silent: true
-
