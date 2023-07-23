@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package CSV.Data.Service;
 
-option go_package = "github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService";
+option go_package = "github.com/kam1dere/CSVDataService/grpc/genproto/CsvDataService";
 import "grpc/proto/api/annotations.proto";
 
 service csvDataService {
@@ -16,6 +16,7 @@ service csvDataService {
 message GetItemsRequest {
   repeated int64 ids = 1;
 }
+
 
 message Item {
   int64 id = 1;
@@ -63,8 +64,8 @@ message Item {
   int64 num_mailboxes = 43;
   int64 num_member_of_groups = 44;
   int64 num_member_of_indirect_groups = 45;
-  string member_of_indirect_groups_ids = 46;
-  string member_of_groups_ids = 47;
+  repeated string member_of_indirect_groups_ids = 46;
+  repeated string member_of_groups_ids = 47;
   bool is_admin = 48;
   bool is_service = 49;
 }

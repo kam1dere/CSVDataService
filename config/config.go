@@ -9,11 +9,6 @@ import (
 )
 
 type Config struct {
-	Postgres struct {
-		URL    string `json:"url"`
-		Driver string `json:"driver"`
-	} `json:"postgres"`
-
 	Server struct {
 		Network    string `json:"network"`
 		Address    string `json:"address"`
@@ -23,15 +18,6 @@ type Config struct {
 	Logger struct {
 		ServiceName string `json:"serviceName"`
 	} `json:"logger"`
-
-	System struct {
-		DeviceIdForLiquid string `json:"deviceIdForLiquid"`
-		Services          struct {
-			Auth struct {
-				Url string `json:"url"`
-			} `json:"auth"`
-		} `json:"system"`
-	}
 }
 
 // LoadConfig loads config from specified --config parameter

@@ -12,10 +12,10 @@ func main() {
 	injector := do.New()
 
 	do.Provide(injector, di.NewConfig)
+	do.Provide(injector, di.NewFlags)
 	do.Provide(injector, di.NewLogger)
 	do.Provide(injector, di.NewServer)
 	do.Provide(injector, di.NewService)
-	do.Provide(injector, di.NewFlags)
 	do.Provide(injector, di.NewRestServer)
 
 	server := do.MustInvoke[*di.GrpcServer](injector)
@@ -28,10 +28,12 @@ func main() {
 			panic(err)
 		}
 	}()
+
 	restServer := do.MustInvoke[*rest.Rest](injector)
 	go func() {
 		restServer.NewRestServer()
 	}()
+
 	logger := do.MustInvoke[*zerolog.Logger](injector)
 	logger.Info().Msg("Server started")
 

@@ -10,7 +10,7 @@ import (
 )
 
 func LoadDataFromCSV() (map[int64]*Item, error) {
-	file, err := os.Open("pkg/dataFromCSV/ueba.csv")
+	file, err := os.Open("pkg/dataFormCSV/ueba.csv")
 	if err != nil {
 		return nil, fmt.Errorf("error opening CSV file: %w", err)
 	}
@@ -20,9 +20,13 @@ func LoadDataFromCSV() (map[int64]*Item, error) {
 	data := make(map[int64]*Item)
 
 	for lineNum := 1; ; lineNum++ {
+
 		record, err := reader.Read()
 		if err == io.EOF {
 			break
+		}
+		if lineNum == 1 {
+			continue
 		}
 		if err != nil {
 			return nil, fmt.Errorf("read err line %d: %s", lineNum, err.Error())

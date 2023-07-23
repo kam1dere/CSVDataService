@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/kam1dere/CSVDataService/app"
 	"github.com/kam1dere/CSVDataService/config"
-	"github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService"
+	"github.com/kam1dere/CSVDataService/grpc/genproto/CsvDataService"
 	"github.com/kam1dere/CSVDataService/pkg/flags"
 	"github.com/kam1dere/CSVDataService/pkg/logger"
 	"github.com/kam1dere/CSVDataService/pkg/rest"
@@ -33,7 +33,6 @@ func NewFlags(_ *do.Injector) (*flags.Flags, error) {
 
 func NewConfig(i *do.Injector) (*config.Config, error) {
 	allFlags := do.MustInvoke[*flags.Flags](i)
-
 	viperConfig, err := config.LoadConfig(*allFlags.ConfigFile)
 	if err != nil {
 		return nil, fmt.Errorf("load config error: %w", err)
@@ -67,17 +66,17 @@ func NewRestServer(i *do.Injector) (*rest.Rest, error) {
 }
 
 func NewServer(i *do.Injector) (*GrpcServer, error) {
-	config := do.MustInvoke[*config.Config](i)
+	cfg := do.MustInvoke[*config.Config](i)
 	service := do.MustInvoke[*app.DataService](i)
 
-	listener, err := net.Listen(config.Server.Network, config.Server.Address)
+	listener, err := net.Listen(cfg.Server.Network, cfg.Server.Address)
 	if err != nil {
 		return nil, fmt.Errorf("create listener error: %w", err)
 	}
 
 	server := grpc.NewServer()
 
-	csvDataService.RegisterCsvDataServiceServer(server, service)
+	CsvDataService.RegisterCsvDataServiceServer(server, service)
 	reflection.Register(server)
 
 	return &GrpcServer{

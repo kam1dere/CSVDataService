@@ -2,11 +2,11 @@
 // source: grpc/proto/dataService.proto
 
 /*
-Package csvDataService is a reverse proxy.
+Package CsvDataService is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package csvDataService
+package CsvDataService
 
 import (
 	"context"

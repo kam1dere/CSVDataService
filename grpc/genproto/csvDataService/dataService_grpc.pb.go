@@ -4,7 +4,7 @@
 // - protoc             v3.21.12
 // source: grpc/proto/dataService.proto
 
-package csvDataService
+package CsvDataService
 
 import (
 	context "context"

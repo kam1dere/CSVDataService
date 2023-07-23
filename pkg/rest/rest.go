@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/kam1dere/CSVDataService/config"
-	"github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService"
+	"github.com/kam1dere/CSVDataService/grpc/genproto/CsvDataService"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -27,7 +27,7 @@ func (r *Rest) NewRestServer() {
 	defer cancel()
 	mux := runtime.NewServeMux()
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	err := csvDataService.RegisterCsvDataServiceHandlerFromEndpoint(ctx, mux, r.cfg.Server.Address, opts)
+	err := CsvDataService.RegisterCsvDataServiceHandlerFromEndpoint(ctx, mux, r.cfg.Server.Address, opts)
 	if err != nil {
 		log.Fatal().Err(err)
 	}
