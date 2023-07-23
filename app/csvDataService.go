@@ -1,6 +1,7 @@
 package app
 
 import (
+	"context"
 	"github.com/kam1dere/CSVDataService/config"
 	"github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService"
 	"github.com/rs/zerolog"
@@ -21,4 +22,12 @@ func NewDataService(
 		logger: logger,
 		config: cfg,
 	}, nil
+}
+
+func (d *DataService) GetItems(
+	ctx context.Context,
+	req *csvDataService.GetItemsRequest,
+) (*csvDataService.GetItemsResponse, error) {
+
+	return nil, nil
 }
