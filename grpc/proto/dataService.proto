@@ -5,7 +5,7 @@ package CSV.Data.Service;
 option go_package = "github.com/kam1dere/CSVDataService/grpc/genproto/csvDataService";
 import "grpc/proto/api/annotations.proto";
 
-service Service {
+service csvDataService {
   rpc GetItems(GetItemsRequest) returns (GetItemsResponse){
     option (google.api.http) = {
       get: "/get-items/{ids}"

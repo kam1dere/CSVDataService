@@ -19,89 +19,89 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Service_GetItems_FullMethodName = "/CSV.Data.Service.Service/GetItems"
+	CsvDataService_GetItems_FullMethodName = "/CSV.Data.Service.csvDataService/GetItems"
 )
 
-// ServiceClient is the client API for Service service.
+// CsvDataServiceClient is the client API for CsvDataService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ServiceClient interface {
+type CsvDataServiceClient interface {
 	GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error)
 }
 
-type serviceClient struct {
+type csvDataServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewServiceClient(cc grpc.ClientConnInterface) ServiceClient {
-	return &serviceClient{cc}
+func NewCsvDataServiceClient(cc grpc.ClientConnInterface) CsvDataServiceClient {
+	return &csvDataServiceClient{cc}
 }
 
-func (c *serviceClient) GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error) {
+func (c *csvDataServiceClient) GetItems(ctx context.Context, in *GetItemsRequest, opts ...grpc.CallOption) (*GetItemsResponse, error) {
 	out := new(GetItemsResponse)
-	err := c.cc.Invoke(ctx, Service_GetItems_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, CsvDataService_GetItems_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ServiceServer is the server API for Service service.
-// All implementations must embed UnimplementedServiceServer
+// CsvDataServiceServer is the server API for CsvDataService service.
+// All implementations must embed UnimplementedCsvDataServiceServer
 // for forward compatibility
-type ServiceServer interface {
+type CsvDataServiceServer interface {
 	GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error)
-	mustEmbedUnimplementedServiceServer()
+	mustEmbedUnimplementedCsvDataServiceServer()
 }
 
-// UnimplementedServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedServiceServer struct {
+// UnimplementedCsvDataServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedCsvDataServiceServer struct {
 }
 
-func (UnimplementedServiceServer) GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error) {
+func (UnimplementedCsvDataServiceServer) GetItems(context.Context, *GetItemsRequest) (*GetItemsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetItems not implemented")
 }
-func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
+func (UnimplementedCsvDataServiceServer) mustEmbedUnimplementedCsvDataServiceServer() {}
 
-// UnsafeServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ServiceServer will
+// UnsafeCsvDataServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CsvDataServiceServer will
 // result in compilation errors.
-type UnsafeServiceServer interface {
-	mustEmbedUnimplementedServiceServer()
+type UnsafeCsvDataServiceServer interface {
+	mustEmbedUnimplementedCsvDataServiceServer()
 }
 
-func RegisterServiceServer(s grpc.ServiceRegistrar, srv ServiceServer) {
-	s.RegisterService(&Service_ServiceDesc, srv)
+func RegisterCsvDataServiceServer(s grpc.ServiceRegistrar, srv CsvDataServiceServer) {
+	s.RegisterService(&CsvDataService_ServiceDesc, srv)
 }
 
-func _Service_GetItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CsvDataService_GetItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetItemsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceServer).GetItems(ctx, in)
+		return srv.(CsvDataServiceServer).GetItems(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Service_GetItems_FullMethodName,
+		FullMethod: CsvDataService_GetItems_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).GetItems(ctx, req.(*GetItemsRequest))
+		return srv.(CsvDataServiceServer).GetItems(ctx, req.(*GetItemsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Service_ServiceDesc is the grpc.ServiceDesc for Service service.
+// CsvDataService_ServiceDesc is the grpc.ServiceDesc for CsvDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Service_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "CSV.Data.Service.Service",
-	HandlerType: (*ServiceServer)(nil),
+var CsvDataService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "CSV.Data.Service.csvDataService",
+	HandlerType: (*CsvDataServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "GetItems",
-			Handler:    _Service_GetItems_Handler,
+			Handler:    _CsvDataService_GetItems_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

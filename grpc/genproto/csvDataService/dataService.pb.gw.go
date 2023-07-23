@@ -31,7 +31,7 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
-func request_Service_GetItems_0(ctx context.Context, marshaler runtime.Marshaler, client ServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func request_CsvDataService_GetItems_0(ctx context.Context, marshaler runtime.Marshaler, client CsvDataServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetItemsRequest
 	var metadata runtime.ServerMetadata
 
@@ -57,7 +57,7 @@ func request_Service_GetItems_0(ctx context.Context, marshaler runtime.Marshaler
 
 }
 
-func local_request_Service_GetItems_0(ctx context.Context, marshaler runtime.Marshaler, server ServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_CsvDataService_GetItems_0(ctx context.Context, marshaler runtime.Marshaler, server CsvDataServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq GetItemsRequest
 	var metadata runtime.ServerMetadata
 
@@ -83,13 +83,13 @@ func local_request_Service_GetItems_0(ctx context.Context, marshaler runtime.Mar
 
 }
 
-// RegisterServiceHandlerServer registers the http handlers for service Service to "mux".
-// UnaryRPC     :call ServiceServer directly.
+// RegisterCsvDataServiceHandlerServer registers the http handlers for service CsvDataService to "mux".
+// UnaryRPC     :call CsvDataServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterServiceHandlerFromEndpoint instead.
-func RegisterServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server ServiceServer) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterCsvDataServiceHandlerFromEndpoint instead.
+func RegisterCsvDataServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server CsvDataServiceServer) error {
 
-	mux.Handle("GET", pattern_Service_GetItems_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_CsvDataService_GetItems_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -97,12 +97,12 @@ func RegisterServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/CSV.Data.Service.Service/GetItems", runtime.WithHTTPPathPattern("/get-items/{ids}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/CSV.Data.Service.CsvDataService/GetItems", runtime.WithHTTPPathPattern("/get-items/{ids}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Service_GetItems_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_CsvDataService_GetItems_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -110,16 +110,16 @@ func RegisterServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, se
 			return
 		}
 
-		forward_Service_GetItems_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_CsvDataService_GetItems_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
 	return nil
 }
 
-// RegisterServiceHandlerFromEndpoint is same as RegisterServiceHandler but
+// RegisterCsvDataServiceHandlerFromEndpoint is same as RegisterCsvDataServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
-func RegisterServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+func RegisterCsvDataServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
 	conn, err := grpc.DialContext(ctx, endpoint, opts...)
 	if err != nil {
 		return err
@@ -139,41 +139,41 @@ func RegisterServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeM
 		}()
 	}()
 
-	return RegisterServiceHandler(ctx, mux, conn)
+	return RegisterCsvDataServiceHandler(ctx, mux, conn)
 }
 
-// RegisterServiceHandler registers the http handlers for service Service to "mux".
+// RegisterCsvDataServiceHandler registers the http handlers for service CsvDataService to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
-func RegisterServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return RegisterServiceHandlerClient(ctx, mux, NewServiceClient(conn))
+func RegisterCsvDataServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterCsvDataServiceHandlerClient(ctx, mux, NewCsvDataServiceClient(conn))
 }
 
-// RegisterServiceHandlerClient registers the http handlers for service Service
-// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "ServiceClient".
-// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "ServiceClient"
+// RegisterCsvDataServiceHandlerClient registers the http handlers for service CsvDataService
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "CsvDataServiceClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "CsvDataServiceClient"
 // doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
-// "ServiceClient" to call the correct interceptors.
-func RegisterServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client ServiceClient) error {
+// "CsvDataServiceClient" to call the correct interceptors.
+func RegisterCsvDataServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client CsvDataServiceClient) error {
 
-	mux.Handle("GET", pattern_Service_GetItems_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_CsvDataService_GetItems_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/CSV.Data.Service.Service/GetItems", runtime.WithHTTPPathPattern("/get-items/{ids}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/CSV.Data.Service.CsvDataService/GetItems", runtime.WithHTTPPathPattern("/get-items/{ids}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Service_GetItems_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_CsvDataService_GetItems_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Service_GetItems_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_CsvDataService_GetItems_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -181,9 +181,9 @@ func RegisterServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, cl
 }
 
 var (
-	pattern_Service_GetItems_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"get-items", "ids"}, ""))
+	pattern_CsvDataService_GetItems_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"get-items", "ids"}, ""))
 )
 
 var (
-	forward_Service_GetItems_0 = runtime.ForwardResponseMessage
+	forward_CsvDataService_GetItems_0 = runtime.ForwardResponseMessage
 )

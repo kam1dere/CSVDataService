@@ -10,7 +10,7 @@ type DataService struct {
 	logger *zerolog.Logger
 	config *config.Config
 
-	csvDataService.UnimplementedServiceServer
+	csvDataService.UnimplementedCsvDataServiceServer
 }
 
 func NewDataService(

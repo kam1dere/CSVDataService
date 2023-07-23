@@ -77,7 +77,7 @@ func NewServer(i *do.Injector) (*GrpcServer, error) {
 
 	server := grpc.NewServer()
 
-	csvDataService.RegisterServiceServer(server, service)
+	csvDataService.RegisterCsvDataServiceServer(server, service)
 	reflection.Register(server)
 
 	return &GrpcServer{
